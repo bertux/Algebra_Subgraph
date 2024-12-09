@@ -49,7 +49,7 @@ export function getEthPriceInUSD(): BigDecimal {
 
 /**
  * Search through graph to find derived Eth per token.
- * @todo update to be derived Matic (add stablecoin estimates)
+ * @todo update to be derived Arthera (add stablecoin estimates)
  **/
 export function findEthPerToken(token: Token): BigDecimal {
   if (token.id == WAA_ADDRESS) {
@@ -75,7 +75,7 @@ export function findEthPerToken(token: Token): BigDecimal {
       if (pool.token0 == token.id) {
         // whitelist token is token1
         let token1 = Token.load(pool.token1)!
-        // get the derived Matic in pool
+        // get the derived Arthera in pool
         let maticLocked = pool.totalValueLockedToken1.times(token1.derivedMatic)
         if (maticLocked.gt(largestLiquidityMatic) && maticLocked.gt(MINIMUM_Arthera_LOCKED)) {
           largestLiquidityMatic = maticLocked
@@ -85,11 +85,11 @@ export function findEthPerToken(token: Token): BigDecimal {
       }
       if (pool.token1 == token.id) {
         let token0 = Token.load(pool.token0)!
-        // get the derived Matic in pool
+        // get the derived Arthera in pool
         let maticLocked = pool.totalValueLockedToken0.times(token0.derivedMatic)
         if (maticLocked.gt(largestLiquidityMatic) && maticLocked.gt(MINIMUM_Arthera_LOCKED)) {
           largestLiquidityMatic = maticLocked
-          // token0 per our token * Matic per token0
+          // token0 per our token * Arthera per token0
           priceSoFar = pool.token0Price.times(token0.derivedMatic as BigDecimal)
         }
       }
